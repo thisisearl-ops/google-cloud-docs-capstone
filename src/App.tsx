@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
+import { MaterialIcon } from './app/components/MaterialIcon'
 import './App.css'
 
 function App() {
@@ -34,9 +35,7 @@ function App() {
 
       <section id="next-steps">
         <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
+          <MaterialIcon name="description" size={48} className="icon" />
           <h2>Documentation</h2>
           <p>Your questions, answered</p>
           <ul>
@@ -55,57 +54,31 @@ function App() {
           </ul>
         </div>
         <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
+          <MaterialIcon name="groups" size={48} className="icon" />
           <h2>Connect with us</h2>
           <p>Join the Vite community</p>
           <ul>
             <li>
               <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
+                <MaterialIcon name="code" size={18} className="button-icon" />
                 GitHub
               </a>
             </li>
             <li>
               <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
+                <MaterialIcon name="forum" size={18} className="button-icon" />
                 Discord
               </a>
             </li>
             <li>
               <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
+                <MaterialIcon name="alternate_email" size={18} className="button-icon" />
                 X.com
               </a>
             </li>
             <li>
               <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
+                <MaterialIcon name="public" size={18} className="button-icon" />
                 Bluesky
               </a>
             </li>

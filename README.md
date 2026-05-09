@@ -10,13 +10,15 @@ This app is a working prototype that shows what the Google Cloud documentation e
 
 The app has 5 main pages:
 
-| Page | URL | Description |
-|---|---|---|
-| Home | `/` | Main landing with Gemini-style search |
-| Skills | `/skills` | Explainer page for what Skills are |
-| Skill Library | `/skills/library` | Browse and filter all available skills |
-| Skill on Doc | `/skills/on-doc` | A skill surfaced inside a documentation page |
-| Skill Detail | `/skills/detail` | Step-by-step detail view of a single skill |
+
+| Page          | URL               | Description                                  |
+| ------------- | ----------------- | -------------------------------------------- |
+| Home          | `/`               | Main landing with Gemini-style search        |
+| Skills        | `/skills`         | Explainer page for what Skills are           |
+| Skill Library | `/skills/library` | Browse and filter all available skills       |
+| Skill on Doc  | `/skills/on-doc`  | A skill surfaced inside a documentation page |
+| Skill Detail  | `/skills/detail`  | Step-by-step detail view of a single skill   |
+
 
 ---
 
@@ -26,14 +28,14 @@ The app has 5 main pages:
 
 Node.js is the engine that runs this project. You only need to install it once.
 
-1. Go to **https://nodejs.org**
+1. Go to **[https://nodejs.org](https://nodejs.org)**
 2. Click the big green **"LTS"** button to download
 3. Open the downloaded file and follow the installer steps (just keep clicking Next/Continue)
 4. When it finishes, open **Terminal** (Mac) or **Command Prompt** (Windows)
 5. Type this and press Enter to confirm it worked:
-   ```
+  ```
    node --version
-   ```
+  ```
    You should see something like `v22.14.0`. If you do, you're good.
 
 ---
@@ -45,6 +47,7 @@ You need to download the code from GitHub onto your computer.
 **Option A — If you have Git installed:**
 
 Open Terminal and run:
+
 ```bash
 git clone https://github.com/jimniDev/google-cloud-docs-capstone.git
 cd google-cloud-docs-capstone
@@ -52,14 +55,14 @@ cd google-cloud-docs-capstone
 
 **Option B — If you don't have Git:**
 
-1. Go to **https://github.com/jimniDev/google-cloud-docs-capstone**
+1. Go to **[https://github.com/jimniDev/google-cloud-docs-capstone](https://github.com/jimniDev/google-cloud-docs-capstone)**
 2. Click the green **Code** button
 3. Click **Download ZIP**
 4. Unzip the downloaded file somewhere easy to find (like your Desktop)
 5. Open Terminal and navigate into the folder:
-   ```bash
+  ```bash
    cd ~/Desktop/google-cloud-docs-capstone
-   ```
+  ```
    *(If you unzipped it somewhere else, replace `~/Desktop/` with that path)*
 
 ---
@@ -69,6 +72,7 @@ cd google-cloud-docs-capstone
 This installs all the libraries the project needs. You only need to do this once.
 
 In your Terminal, make sure you're inside the project folder, then run:
+
 ```bash
 npm install
 ```
@@ -84,13 +88,14 @@ npm run dev
 ```
 
 You'll see output like this:
+
 ```
 VITE v8.x  ready in 200ms
 
 ➜  Local:   http://localhost:5173/
 ```
 
-Open your browser and go to **http://localhost:5173**
+Open your browser and go to **[http://localhost:5173](http://localhost:5173)**
 
 The app is now running. 🎉
 
@@ -146,11 +151,13 @@ google-cloud-docs-capstone/
 
 ## Available Scripts
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Start the local dev server |
-| `npm run build` | Build for production |
+
+| Command           | What it does                         |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Start the local dev server           |
+| `npm run build`   | Build for production                 |
 | `npm run preview` | Preview the production build locally |
+
 
 ---
 

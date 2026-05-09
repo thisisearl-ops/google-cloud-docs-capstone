@@ -1,6 +1,6 @@
 import { Footer } from './Footer';
-import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router';
+import { MaterialIcon } from './MaterialIcon';
 
 export function GetStartedPage() {
   return (
@@ -16,7 +16,7 @@ export function GetStartedPage() {
             </li>
             <li>
               <div className="flex items-center">
-                <ChevronRight className="w-4 h-4 text-gray-400 mx-0.5" />
+                <MaterialIcon name="chevron_right" size={18} className="text-gray-400 mx-0.5" />
                 <span className="text-gray-900 font-medium">Get Started</span>
               </div>
             </li>

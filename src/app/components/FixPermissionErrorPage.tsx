@@ -1,29 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Footer } from './Footer';
 import clsx from 'clsx';
-import {
-  ShieldAlert,
-  Bot,
-  Play,
-  FileText,
-  Search,
-  CheckCircle2,
-  ChevronDown,
-  Copy,
-  LayoutTemplate,
-  Sparkles,
-  Link as LinkIcon,
-  MousePointerClick,
-  Terminal,
-  RefreshCw,
-  Box,
-  Asterisk,
-  Code2,
-  Cable,
-  X,
-  Star,
-  ChevronRight
-} from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 
 export function FixPermissionErrorPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -60,7 +38,7 @@ export function FixPermissionErrorPage() {
             </li>
             <li>
               <div className="flex items-center">
-                <ChevronRight className="w-4 h-4 text-gray-400 mx-0.5" />
+                <MaterialIcon name="chevron_right" size={18} className="text-gray-400 mx-0.5" />
                 <a href="#" className="hover:text-blue-600 transition-colors">
                   Troubleshoot
                 </a>
@@ -68,7 +46,7 @@ export function FixPermissionErrorPage() {
             </li>
             <li>
               <div className="flex items-center">
-                <ChevronRight className="w-4 h-4 text-gray-400 mx-0.5" />
+                <MaterialIcon name="chevron_right" size={18} className="text-gray-400 mx-0.5" />
                 <span className="text-gray-900 font-medium">Fix a 403 Permission Error</span>
               </div>
             </li>
@@ -92,20 +70,20 @@ export function FixPermissionErrorPage() {
               <div className="relative" ref={dropdownRef}>
                 <div className="flex rounded-lg border border-gray-200 shadow-sm overflow-hidden bg-white">
                   <button className="px-4 py-2 hover:bg-gray-50 text-sm font-medium text-gray-700 flex items-center gap-2 border-r border-gray-200">
-                    <Copy className="w-4 h-4" /> Copy page
+                    <MaterialIcon name="content_copy" size={16} /> Copy page
                   </button>
                   <button 
                     className="px-2 py-2 hover:bg-gray-50 text-gray-500"
                     onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   >
-                    <ChevronDown className="w-4 h-4" />
+                    <MaterialIcon name="keyboard_arrow_down" size={16} />
                   </button>
                 </div>
 
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-50">
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <Copy className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="content_copy" size={20} className="text-gray-400 mt-0.5" />
                       <div>
                         <div className="text-sm font-medium text-gray-900">Copy page</div>
                         <div className="text-xs text-gray-500">Copy page as Markdown for LLMs</div>
@@ -115,9 +93,9 @@ export function FixPermissionErrorPage() {
                     <div className="h-px bg-gray-100 my-1"></div>
                     
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <FileText className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="description" size={20} className="text-gray-400 mt-0.5" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">View as Markdown <LinkIcon className="w-3 h-3 text-gray-400" /></div>
+                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">View as Markdown <MaterialIcon name="open_in_new" size={12} className="text-gray-400" /></div>
                         <div className="text-xs text-gray-500">View this page as plain text</div>
                       </div>
                     </button>
@@ -125,23 +103,23 @@ export function FixPermissionErrorPage() {
                     <div className="h-px bg-gray-100 my-1"></div>
                     
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <Bot className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="smart_toy" size={20} className="text-gray-400 mt-0.5" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Open in ChatGPT <LinkIcon className="w-3 h-3 text-gray-400" /></div>
+                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Open in ChatGPT <MaterialIcon name="open_in_new" size={12} className="text-gray-400" /></div>
                         <div className="text-xs text-gray-500">Ask questions about this page</div>
                       </div>
                     </button>
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <Asterisk className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="asterisk" size={20} className="text-gray-400 mt-0.5" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Open in Claude <LinkIcon className="w-3 h-3 text-gray-400" /></div>
+                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Open in Claude <MaterialIcon name="open_in_new" size={12} className="text-gray-400" /></div>
                         <div className="text-xs text-gray-500">Ask questions about this page</div>
                       </div>
                     </button>
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <Sparkles className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="auto_awesome" size={20} className="text-gray-400 mt-0.5" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Open in Gemini <LinkIcon className="w-3 h-3 text-gray-400" /></div>
+                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Open in Gemini <MaterialIcon name="open_in_new" size={12} className="text-gray-400" /></div>
                         <div className="text-xs text-gray-500">Ask questions about this page</div>
                       </div>
                     </button>
@@ -149,23 +127,23 @@ export function FixPermissionErrorPage() {
                     <div className="h-px bg-gray-100 my-1"></div>
                     
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <Cable className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="cable" size={20} className="text-gray-400 mt-0.5" />
                       <div>
                         <div className="text-sm font-medium text-gray-900">Copy MCP Server</div>
                         <div className="text-xs text-gray-500">Copy MCP Server URL to clipboard</div>
                       </div>
                     </button>
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <Box className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="deployed_code" size={20} className="text-gray-400 mt-0.5" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Connect to Cursor <LinkIcon className="w-3 h-3 text-gray-400" /></div>
+                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Connect to Cursor <MaterialIcon name="open_in_new" size={12} className="text-gray-400" /></div>
                         <div className="text-xs text-gray-500">Install MCP Server on Cursor</div>
                       </div>
                     </button>
                     <button className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-start gap-3">
-                      <Code2 className="w-5 h-5 text-gray-400 mt-0.5" />
+                      <MaterialIcon name="code_blocks" size={20} className="text-gray-400 mt-0.5" />
                       <div>
-                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Connect to VS Code <LinkIcon className="w-3 h-3 text-gray-400" /></div>
+                        <div className="text-sm font-medium text-gray-900 flex items-center gap-1">Connect to VS Code <MaterialIcon name="open_in_new" size={12} className="text-gray-400" /></div>
                         <div className="text-xs text-gray-500">Install MCP Server on VS Code</div>
                       </div>
                     </button>
@@ -177,11 +155,11 @@ export function FixPermissionErrorPage() {
             {/* Merged Recommended Fix Section */}
             <div className="bg-[#f8fafd] border border-[#d2e3fc] border-l-4 border-l-[#1a73e8] rounded-xl p-5 mb-12 relative flex flex-col sm:flex-row gap-5 shadow-sm">
               <button className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition-colors">
-                <X className="w-4 h-4" />
+                <MaterialIcon name="close" size={16} />
               </button>
 
               <div className="w-9 h-9 bg-[#1a73e8] rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-                <Star className="w-5 h-5 text-white fill-current" />
+                <MaterialIcon name="star" size={20} className="text-white" fill />
               </div>
 
               <div className="flex-1 pr-6">
@@ -210,7 +188,7 @@ export function FixPermissionErrorPage() {
                     onClick={() => setSkillInstalled(true)}
                     className="px-4 py-2 bg-[#1a73e8] hover:bg-blue-700 text-white rounded-md text-sm font-medium flex items-center gap-2 transition-colors shadow-sm"
                   >
-                    <Play className="w-4 h-4" /> {skillInstalled ? 'Skill Installed' : 'Install Skill'}
+                    <MaterialIcon name="play_arrow" size={16} /> {skillInstalled ? 'Skill Installed' : 'Install Skill'}
                   </button>
                   <button className="px-4 py-2 bg-white border border-gray-300 hover:bg-gray-50 text-[#1a73e8] rounded-md text-sm font-medium transition-colors shadow-sm">
                     View Steps Manually
@@ -223,7 +201,7 @@ export function FixPermissionErrorPage() {
             {skillInstalled && !inputsConfirmed && (
               <div className="bg-white border-2 border-blue-500 rounded-xl p-6 mb-12 shadow-lg animate-in fade-in slide-in-from-top-2 duration-300">
                 <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-blue-600" />
+                  <MaterialIcon name="description" size={20} className="text-blue-600" />
                   Configure Inputs
                 </h3>
                 <p className="text-sm text-gray-600 mb-6">Review and confirm the pre-loaded information for your troubleshooting session.</p>
@@ -266,7 +244,7 @@ export function FixPermissionErrorPage() {
                   onClick={() => setInputsConfirmed(true)}
                   className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium flex items-center justify-center gap-2 transition-colors shadow-sm"
                 >
-                  <CheckCircle2 className="w-5 h-5" />
+                  <MaterialIcon name="check_circle" size={20} />
                   Confirm Inputs
                 </button>
               </div>
@@ -280,11 +258,11 @@ export function FixPermissionErrorPage() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                   {[
-                    { id: 'cloud-shell', label: 'Cloud Shell', icon: Terminal, desc: 'Run in browser-based shell' },
-                    { id: 'cli', label: 'CLI', icon: Code2, desc: 'Run locally with gcloud' },
-                    { id: 'cloud-console', label: 'Cloud Console', icon: LayoutTemplate, desc: 'Use Google Cloud UI' },
-                    { id: 'api', label: 'API', icon: Cable, desc: 'Execute via REST API' },
-                    { id: 'ai-assistant', label: 'AI Assistant', icon: Sparkles, desc: 'Recommended - AI-guided fix', recommended: true }
+                    { id: 'cloud-shell', label: 'Cloud Shell', icon: 'terminal', desc: 'Run in browser-based shell' },
+                    { id: 'cli', label: 'CLI', icon: 'code_blocks', desc: 'Run locally with gcloud' },
+                    { id: 'cloud-console', label: 'Cloud Console', icon: 'dashboard_customize', desc: 'Use Google Cloud UI' },
+                    { id: 'api', label: 'API', icon: 'cable', desc: 'Execute via REST API' },
+                    { id: 'ai-assistant', label: 'AI Assistant', icon: 'auto_awesome', desc: 'Recommended - AI-guided fix', recommended: true }
                   ].map((method) => (
                     <div
                       key={method.id}
@@ -302,8 +280,7 @@ export function FixPermissionErrorPage() {
                           "w-10 h-10 rounded-lg flex items-center justify-center",
                           selectedMethod === method.id ? "bg-blue-600" : "bg-gray-100"
                         )}>
-                          <method.icon className={clsx(
-                            "w-5 h-5",
+                          <MaterialIcon name={method.icon} size={20} className={clsx(
                             selectedMethod === method.id ? "text-white" : "text-gray-600"
                           )} />
                         </div>
@@ -333,7 +310,7 @@ export function FixPermissionErrorPage() {
                   disabled={skillExecuted}
                   className="w-full px-6 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl font-bold text-lg flex items-center justify-center gap-3 transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Play className="w-6 h-6" />
+                  <MaterialIcon name="play_arrow" size={24} />
                   {skillExecuted ? 'Executing...' : 'Execute / Run Skill'}
                 </button>
               </div>
@@ -346,7 +323,7 @@ export function FixPermissionErrorPage() {
                   <div className="bg-green-50 border-2 border-green-500 rounded-xl p-6 shadow-lg">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <CheckCircle2 className="w-7 h-7 text-white" />
+                        <MaterialIcon name="check_circle" size={28} className="text-white" />
                       </div>
                       <div>
                         <h3 className="text-2xl font-bold text-green-900">Success: Permissions Updated and Issue Resolved</h3>
@@ -354,16 +331,16 @@ export function FixPermissionErrorPage() {
                       </div>
                     </div>
                     <div className="bg-white rounded-lg p-4 border border-green-200">
-                      <p className="text-sm text-gray-700 mb-2">✅ Service account permissions updated</p>
-                      <p className="text-sm text-gray-700 mb-2">✅ IAM role granted: roles/run.admin</p>
-                      <p className="text-sm text-gray-700">✅ Changes propagated across all regions</p>
+                      <p className="text-sm text-gray-700 mb-2 flex items-center gap-2"><MaterialIcon name="check_circle" size={16} className="text-green-600" /> Service account permissions updated</p>
+                      <p className="text-sm text-gray-700 mb-2 flex items-center gap-2"><MaterialIcon name="check_circle" size={16} className="text-green-600" /> IAM role granted: roles/run.admin</p>
+                      <p className="text-sm text-gray-700 flex items-center gap-2"><MaterialIcon name="check_circle" size={16} className="text-green-600" /> Changes propagated across all regions</p>
                     </div>
                   </div>
                 ) : (
                   <div className="bg-red-50 border-2 border-red-400 rounded-xl p-6 shadow-lg">
                     <div className="flex items-center gap-4 mb-4">
                       <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
-                        <ShieldAlert className="w-7 h-7 text-white" />
+                        <MaterialIcon name="gpp_maybe" size={28} className="text-white" />
                       </div>
                       <div>
                         <h3 className="text-2xl font-bold text-red-900">Additional Steps Required</h3>
@@ -374,16 +351,16 @@ export function FixPermissionErrorPage() {
                       <h4 className="font-semibold text-gray-900 mb-4">Next Steps:</h4>
                       <div className="flex flex-wrap gap-3">
                         <button className="px-4 py-2 bg-white border-2 border-red-400 hover:bg-red-50 text-red-800 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
-                          <MousePointerClick className="w-4 h-4" /> Redeploy
+                          <MaterialIcon name="ads_click" size={16} /> Redeploy
                         </button>
                         <button className="px-4 py-2 bg-white border-2 border-red-400 hover:bg-red-50 text-red-800 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
-                          <Terminal className="w-4 h-4" /> Re-run command
+                          <MaterialIcon name="terminal" size={16} /> Re-run command
                         </button>
                         <button
                           onClick={() => setExecutionSuccess(true)}
                           className="px-4 py-2 bg-white border-2 border-red-400 hover:bg-red-50 text-red-800 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors"
                         >
-                          <RefreshCw className="w-4 h-4" /> Refresh access
+                          <MaterialIcon name="sync" size={16} /> Refresh access
                         </button>
                       </div>
                     </div>
@@ -413,9 +390,9 @@ export function FixPermissionErrorPage() {
                     <li>Service account</li>
                   </ul>
                   <div className="bg-blue-50 rounded-lg p-4 flex items-start gap-3">
-                    <Bot className="w-5 h-5 text-blue-600 mt-0.5" />
+                    <MaterialIcon name="smart_toy" size={20} className="text-blue-600 mt-0.5" />
                     <div>
-                      <span className="font-medium text-blue-900 block mb-1">👉 Tip:</span>
+                      <span className="font-medium text-blue-900 flex items-center gap-1 mb-1"><MaterialIcon name="tips_and_updates" size={16} /> Tip:</span>
                       <code className="bg-blue-100 px-2 py-1 rounded text-blue-800 text-sm">gcloud auth list</code>
                     </div>
                   </div>
@@ -430,7 +407,7 @@ export function FixPermissionErrorPage() {
                     Permission denied: <span className="text-blue-600 font-semibold">resourcemanager.projects.get</span>
                   </div>
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                    <span className="font-medium text-gray-900 block mb-2">👉 This tells you:</span>
+                    <span className="font-medium text-gray-900 flex items-center gap-1 mb-2"><MaterialIcon name="info" size={16} /> This tells you:</span>
                     <ul className="list-disc pl-5 text-gray-600 space-y-1">
                       <li>What permission is missing</li>
                       <li>What role might include it</li>
@@ -445,18 +422,18 @@ export function FixPermissionErrorPage() {
                   
                   <div className="bg-white border border-gray-200 border-l-4 border-l-slate-500 rounded-xl p-5 mb-6 shadow-sm relative flex flex-col sm:flex-row gap-5">
                     <div className="w-9 h-9 bg-slate-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-                      <LayoutTemplate className="w-5 h-5 text-white" />
+                      <MaterialIcon name="dashboard_customize" size={20} className="text-white" />
                     </div>
                     <div className="flex-1 pr-2">
                       <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
                         <div>
                           <span className="text-gray-500 text-sm block mb-1">Go to:</span>
                           <div className="font-medium text-gray-900 flex items-center gap-2">
-                            👉 IAM & Admin <ChevronDown className="w-4 h-4 rotate-[-90deg] text-gray-400" /> IAM
+                            IAM & Admin <MaterialIcon name="keyboard_arrow_down" size={16} className="rotate-[-90deg] text-gray-400" /> IAM
                           </div>
                         </div>
                         <button className="px-4 py-2 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
-                          <Play className="w-4 h-4" /> 👉 Run Skill instead
+                          <MaterialIcon name="play_arrow" size={16} /> Run Skill instead
                           <span className="text-blue-500 font-normal">(Skips manual navigation)</span>
                         </button>
                       </div>
@@ -490,17 +467,17 @@ export function FixPermissionErrorPage() {
                   
                   <div className="bg-green-50 border border-green-200 border-l-4 border-l-green-600 rounded-xl p-5 shadow-sm relative flex flex-col sm:flex-row gap-5">
                     <div className="w-9 h-9 bg-green-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-                      <CheckCircle2 className="w-5 h-5 text-white" />
+                      <MaterialIcon name="check_circle" size={20} className="text-white" />
                     </div>
                     <div className="flex-1 pr-2">
                       <h4 className="font-medium text-green-900 mb-3 text-[18px]">Retry your action:</h4>
                       <ul className="flex flex-wrap gap-4 text-sm text-green-800 mb-4">
-                        <li className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-green-200 shadow-sm"><MousePointerClick className="w-4 h-4" /> Redeploy</li>
-                        <li className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-green-200 shadow-sm"><Terminal className="w-4 h-4" /> Re-run command</li>
-                        <li className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-green-200 shadow-sm"><RefreshCw className="w-4 h-4" /> Refresh access</li>
+                        <li className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-green-200 shadow-sm"><MaterialIcon name="ads_click" size={16} /> Redeploy</li>
+                        <li className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-green-200 shadow-sm"><MaterialIcon name="terminal" size={16} /> Re-run command</li>
+                        <li className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-full border border-green-200 shadow-sm"><MaterialIcon name="sync" size={16} /> Refresh access</li>
                       </ul>
                       <div className="flex items-center gap-2 text-sm text-green-700 border-t border-green-200/60 pt-4 mt-2 font-medium">
-                        👉 Optional: Run verification check
+                        <MaterialIcon name="rule" size={16} /> Optional: Run verification check
                       </div>
                     </div>
                   </div>
@@ -516,7 +493,7 @@ export function FixPermissionErrorPage() {
               
               <div className="bg-white border border-gray-200 border-l-4 border-l-slate-600 rounded-xl p-5 shadow-sm relative flex flex-col sm:flex-row gap-5">
                 <div className="w-9 h-9 bg-slate-600 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 shadow-sm">
-                  <Search className="w-5 h-5 text-white" />
+                  <MaterialIcon name="search" size={20} className="text-white" />
                 </div>
                 <div className="flex-1 pr-2">
                   <h3 className="font-bold text-[18px] text-gray-900 mb-4">
@@ -538,7 +515,7 @@ export function FixPermissionErrorPage() {
                   </div>
 
                   <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-2">
-                    <span className="text-sm font-medium text-gray-700">👉 Confirm before proceeding</span>
+                    <span className="text-sm font-medium text-gray-700 flex items-center gap-1"><MaterialIcon name="checklist" size={16} /> Confirm before proceeding</span>
                     <div className="flex gap-3">
                       <button className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors shadow-sm">Cancel</button>
                       <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors shadow-sm">Apply Fix</button>

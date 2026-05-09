@@ -273,6 +273,22 @@
       font-size: 14px;
     }
 
+    .page-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0;
+    }
+
+    .run-count {
+      margin-left: auto;
+      color: var(--blue);
+      font-size: 14px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
     .section-divider {
       display: none;
     }
@@ -311,11 +327,10 @@
 
     .quick-start-card {
       position: relative;
-      padding: 24px 28px;
-      background: var(--surface);
-      border: 1px solid var(--blue);
-      border-left: 1px solid var(--blue);
-      border-radius: 8px;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
     }
 
     .quick-start-card + .content-card {
@@ -903,10 +918,8 @@
       color: var(--blue);
     }
 
-    .doc-source-icon svg {
-      display: block;
-      width: 34px;
-      height: 34px;
+    .doc-source-icon .material-icons {
+      font-size: 34px;
     }
 
     .doc-info h4 {
@@ -953,16 +966,19 @@
     }
 
     .related-icon {
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
       width: 48px;
       height: 48px;
       margin-bottom: 42px;
       color: var(--blue);
     }
 
-    .related-icon svg {
+    .related-icon .material-icons {
       display: block;
-      width: 100%;
-      height: 100%;
+      font-size: 48px;
+      line-height: 1;
     }
 
     .skill-mini-card h4 {
@@ -1267,8 +1283,8 @@
     }
 
     .page-title-section h1 {
-      font-size: clamp(36px, 4.6vw, 48px);
-      line-height: 56px;
+      font-size: clamp(32px, 4vw, 40px);
+      line-height: 48px;
       letter-spacing: -0.8px;
     }
 
@@ -1282,7 +1298,6 @@
       margin-bottom: 48px;
     }
 
-    .quick-start-card,
     .doc-card,
     .skill-mini-card,
     .step-item,
@@ -1294,11 +1309,13 @@
     }
 
     .quick-start-card {
-      padding: 24px;
-      border-color: var(--nimbus-border);
+      padding: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
     }
 
-    .quick-start-card:hover,
     .doc-card:hover,
     .skill-mini-card:hover,
     .step-item:hover {
@@ -1605,7 +1622,7 @@
     <main class="page">
       <header class="page-header-nav">
         <div class="nav-left">
-          <a href="#" class="back-link" aria-label="Back to library" onclick="window.parent.location.href = window.parent.location.href.split('#')[0] + '#/skills/library'; return false;">
+          <a href="#" class="back-link" aria-label="Back to library">
             Back to Library
           </a>
         </div>
@@ -1630,9 +1647,12 @@
               <span>Skill</span>
             </nav>
             <h1>
-              Fix 403 Forbidden Access
+              Fix 403 Forbidden Access Skill
             </h1>
-            <p class="page-meta">Troubleshooting · 4 steps · 5 min</p>
+            <div class="page-meta-row">
+              <p class="page-meta">Troubleshooting · 4 steps · 5 min</p>
+              <p class="run-count">★ 12,400 runs in the last 30 days</p>
+            </div>
           </div>
           <hr class="section-divider">
 
@@ -1641,27 +1661,28 @@
           <p>Diagnose and resolve permission errors for Gemini Enterprise endpoint calls in GCP. This skill guides you through identifying the caller identity, checking IAM roles, and granting necessary permissions.</p>
         </section>
 
-        <section class="content-card prerequisites-card" id="prerequisites">
-          <h2 class="section-title">Prerequisites</h2>
-          <ul class="checklist">
-            <li>Owner or IAM Admin role on project</li>
-            <li>Cloud Shell or gcloud CLI available</li>
-            <li><code>test_endpoint.py</code> script created</li>
-          </ul>
-        </section>
-
         <section class="content-card quick-start-card" id="quick-start">
-          <h2 class="section-title">Quick Start</h2>
+          <h2 class="section-title">Quick Guide</h2>
 
           <div class="input-group">
-            <label class="input-label" for="installCommand">Installation Command:</label>
             <div class="command-block">
-              <code id="installCommand">claude-skill install fix-403-error</code>
+              <code id="installCommand">gcloud skills run fix-403-error skill</code>
               <div class="button-group-split">
                 <button class="btn-copy" type="button" onclick="copyCommand()">Copy</button>
               </div>
             </div>
           </div>
+
+          <details class="skill-file-section" id="prerequisites">
+            <summary class="skill-file-toggle">Prerequisites</summary>
+            <div class="skill-file-content">
+              <ul class="checklist">
+                <li>Owner or IAM Admin role on project</li>
+                <li>Cloud Shell or gcloud CLI available</li>
+                <li><code>test_endpoint.py</code> script created</li>
+              </ul>
+            </div>
+          </details>
 
           <details class="skill-file-section">
             <summary class="skill-file-toggle">Skill.md</summary>
@@ -1732,6 +1753,13 @@
             <button class="btn-primary-action" type="button" onclick="toggleExecutionInline()" aria-expanded="false" aria-controls="executionInline">Execute</button>
             <div class="execution-inline" id="executionInline">
               <div class="exec-grid">
+                <div class="exec-option" onclick="executeIn('Cloud Shell')">
+                  <div class="exec-text">
+                    <strong>Run in cloud shell</strong>
+                    <span>Execute this skill in Google Cloud Shell</span>
+                  </div>
+                </div>
+
                 <div class="exec-option" onclick="executeIn('Claude')">
                   <div class="exec-text">
                     <strong>Open in Claude</strong>
@@ -1830,27 +1858,25 @@
           </div>
         </section>
 
-        <section class="content-card" id="verification">
-          <h2 class="section-title">Verification</h2>
-          <div class="verification-list">
-            <label class="verify-item">
-              <input type="checkbox" id="check1">
-              <span class="checkmark"></span>
-              <span class="verify-label">gcloud config shows correct account</span>
-            </label>
+        <section class="content-card" id="source-metadata">
+          <h2 class="section-title">Source &amp; Metadata</h2>
+          <details class="skill-file-section">
+            <summary class="skill-file-toggle">Source &amp; Metadata</summary>
+            <div class="skill-file-content">
+              <p><strong>SOURCE</strong></p>
+              <p><strong>Documentation:</strong> cloud.google.com/iam/docs/troubleshooting-access</p>
 
-            <label class="verify-item">
-              <input type="checkbox" id="check2">
-              <span class="checkmark"></span>
-              <span class="verify-label">IAM policy includes aiplatform.user</span>
-            </label>
+              <p><strong>VERSION</strong></p>
+              <p><strong>Current:</strong> 2024.10.15</p>
+              <p><strong>Last verified:</strong> Oct 15, 2024</p>
+              <p><strong>Skill API:</strong> skills.cloud.google.com/v1</p>
+              <p><strong>Pin a version:</strong> gcloud skills /iam/diagnose-403-error@2024.10.15</p>
 
-            <label class="verify-item">
-              <input type="checkbox" id="check3">
-              <span class="checkmark"></span>
-              <span class="verify-label">test_endpoint.py returns success</span>
-            </label>
-          </div>
+              <p><strong>USED BY</strong></p>
+              <p>★ 12,400 runs in the last 30 days</p>
+              <p>✓ Verified: works on projects, folders, and organizations</p>
+            </div>
+          </details>
         </section>
 
         <section class="content-card" id="documentation-sources">
@@ -1858,11 +1884,7 @@
           <div class="doc-links">
             <a href="https://cloud.google.com/vertex-ai/docs/general/access-control" class="doc-card" target="_blank" rel="noreferrer">
               <span class="doc-source-icon" aria-hidden="true">
-                <svg viewBox="0 0 48 48" fill="none">
-                  <path d="M14 6h15l7 7v29H14V6Z" fill="currentColor"/>
-                  <path d="M29 6v8h7" stroke="#d2e3fc" stroke-width="3" stroke-linejoin="round"/>
-                  <path d="M20 23h10M20 30h14M20 36h14" stroke="#d2e3fc" stroke-width="3" stroke-linecap="round"/>
-                </svg>
+                <span class="material-icons">description</span>
               </span>
               <div class="doc-info">
                 <h4>IAM Permissions for Vertex AI</h4>
@@ -1872,11 +1894,7 @@
 
             <a href="https://cloud.google.com/iam/docs/overview" class="doc-card" target="_blank" rel="noreferrer">
               <span class="doc-source-icon" aria-hidden="true">
-                <svg viewBox="0 0 48 48" fill="none">
-                  <path d="M14 6h15l7 7v29H14V6Z" fill="currentColor"/>
-                  <path d="M29 6v8h7" stroke="#d2e3fc" stroke-width="3" stroke-linejoin="round"/>
-                  <path d="M20 23h10M20 30h14M20 36h14" stroke="#d2e3fc" stroke-width="3" stroke-linecap="round"/>
-                </svg>
+                <span class="material-icons">description</span>
               </span>
               <div class="doc-info">
                 <h4>Access Control Overview</h4>
@@ -1891,11 +1909,7 @@
           <div class="related-grid">
             <a href="#" class="skill-mini-card">
               <span class="related-icon" aria-hidden="true">
-                <svg viewBox="0 0 48 48" fill="none">
-                  <path d="M24 5 41 14v14c0 8-7 13-17 18C14 41 7 36 7 28V14L24 5Z" stroke="currentColor" stroke-width="3"/>
-                  <circle cx="24" cy="21" r="6" stroke="#8a9099" stroke-width="3"/>
-                  <path d="M13 36c2-7 7-10 11-10s9 3 11 10" stroke="#8a9099" stroke-width="3"/>
-                </svg>
+                <span class="material-icons">cloud_upload</span>
               </span>
               <h4>Deploy Cloud Run</h4>
               <p class="skill-meta">Deploy and manage containerized services with a guided workflow.</p>
@@ -1903,10 +1917,7 @@
 
             <a href="#" class="skill-mini-card">
               <span class="related-icon" aria-hidden="true">
-                <svg viewBox="0 0 48 48" fill="none">
-                  <path d="M24 5 41 14v14c0 8-7 13-17 18C14 41 7 36 7 28V14L24 5Z" stroke="currentColor" stroke-width="3"/>
-                  <path d="M15 32V21M24 32V14M33 32V25" stroke="#8a9099" stroke-width="3" stroke-linecap="round"/>
-                </svg>
+                <span class="material-icons">assessment</span>
               </span>
               <h4>Monitor Model Logs</h4>
               <p class="skill-meta">Review model activity and troubleshoot failures from logs.</p>
@@ -1914,11 +1925,7 @@
 
             <a href="#" class="skill-mini-card">
               <span class="related-icon" aria-hidden="true">
-                <svg viewBox="0 0 48 48" fill="none">
-                  <path d="M24 5 41 14v14c0 8-7 13-17 18C14 41 7 36 7 28V14L24 5Z" stroke="currentColor" stroke-width="3"/>
-                  <rect x="16" y="22" width="16" height="12" rx="2" stroke="#8a9099" stroke-width="3"/>
-                  <path d="M19 22v-4a5 5 0 0 1 10 0v4" stroke="#8a9099" stroke-width="3"/>
-                </svg>
+                <span class="material-icons">lock</span>
               </span>
               <h4>Config IAM Roles</h4>
               <p class="skill-meta">Configure roles and permissions for secure access control.</p>
@@ -1933,7 +1940,7 @@
           <a href="#prerequisites">Prerequisites</a>
           <a href="#quick-start">Quick Start</a>
           <a href="#step-by-step-guide">Step-by-step Guide</a>
-          <a href="#verification">Verification</a>
+          <a href="#source-metadata">Source &amp; Metadata</a>
           <a href="#documentation-sources">Documentation Sources</a>
           <a href="#related-skills">Related Skills</a>
         </aside>
@@ -2074,7 +2081,7 @@
     }
 
     function copyCommand() {
-      writeClipboard("claude-skill install fix-403-error", "Command copied to clipboard");
+      writeClipboard("gcloud skills run fix-403-error skill", "Command copied to clipboard");
     }
 
     function editParam(id) {
