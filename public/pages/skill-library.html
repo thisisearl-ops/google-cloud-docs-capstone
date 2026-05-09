@@ -85,8 +85,7 @@ textarea {
 .icon-lg { font-size: 24px; }
 .icon-xl { font-size: 32px; }
 .btn .material-symbols-outlined,
-.nav-pill .material-symbols-outlined,
-.preview-btn .material-symbols-outlined {
+.nav-pill .material-symbols-outlined {
   margin-right: 8px;
 }
 .icon-only .material-symbols-outlined,
@@ -293,6 +292,10 @@ textarea:focus-visible {
   max-width: 620px;
   position: relative;
 }
+.toolbar-search {
+  flex: 1;
+  max-width: 420px;
+}
 .search-input {
   width: 100%;
   height: 40px;
@@ -390,12 +393,21 @@ textarea:focus-visible {
 .main-toolbar {
   align-items: center;
   display: flex;
+  gap: 16px;
   justify-content: space-between;
   margin-bottom: 22px;
+}
+.toolbar-actions {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  margin-left: auto;
 }
 .result-count {
   color: var(--nimbus-text-secondary);
   font-size: 14px;
+  min-width: 110px;
+  text-align: right;
 }
 .sort-select {
   background: var(--nimbus-surface);
@@ -416,7 +428,8 @@ textarea:focus-visible {
   border-radius: var(--nimbus-radius-xl);
   cursor: pointer;
   min-height: 200px;
-  padding: 20px 24px;
+  padding: 20px 24px 76px;
+  position: relative;
   transition: box-shadow var(--nimbus-motion-medium), border-color var(--nimbus-motion-medium), transform var(--nimbus-motion-medium);
   box-shadow: var(--nimbus-shadow-sm);
 }
@@ -428,16 +441,23 @@ textarea:focus-visible {
 .skill-card-header {
   align-items: flex-start;
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 10px;
+}
+.skill-card-heading {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-align: left;
+  width: 100%;
 }
 .skill-icon {
   align-items: center;
-  background: var(--nimbus-surface-subtle);
-  border: 1px solid var(--nimbus-border);
-  border-radius: var(--nimbus-radius-lg);
   color: var(--nimbus-primary);
   display: inline-flex;
   flex-shrink: 0;
+  font-size: 36px;
   height: 36px;
   justify-content: center;
   width: 36px;
@@ -460,8 +480,10 @@ textarea:focus-visible {
   display: inline-flex;
   font-size: 11px;
   font-weight: 500;
-  margin-top: 10px;
+  bottom: 20px;
+  left: 24px;
   padding: 4px 8px;
+  position: absolute;
   text-transform: uppercase;
 }
 .category-setup { background: var(--nimbus-info-soft); color: var(--nimbus-info); }
@@ -471,7 +493,17 @@ textarea:focus-visible {
 .skill-meta {
   color: var(--nimbus-text-secondary);
   font-size: 12px;
-  margin-top: 14px;
+  margin-top: 4px;
+}
+.skill-description {
+  color: var(--nimbus-text-secondary);
+  display: -webkit-box;
+  font-size: 13px;
+  line-height: 20px;
+  margin-top: 12px;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 .skill-highlight {
   align-items: center;
@@ -481,23 +513,35 @@ textarea:focus-visible {
   gap: 8px;
   margin-top: 12px;
 }
-.preview-btn {
-  background: var(--nimbus-surface);
-  border: 1px solid var(--nimbus-border);
-  border-radius: var(--nimbus-radius-md);
-  color: var(--nimbus-primary);
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  height: 36px;
-  margin-top: 12px;
-  min-width: 96px;
-  padding: 0 16px;
-  transition: background var(--nimbus-motion-fast), border-color var(--nimbus-motion-fast), box-shadow var(--nimbus-motion-fast), transform var(--nimbus-motion-fast);
+.skill-stats {
+  align-items: center;
+  bottom: 20px;
+  color: var(--nimbus-text-secondary);
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+  position: absolute;
+  right: 24px;
 }
-.preview-btn:hover {
-  background: var(--nimbus-surface-subtle);
-  border-color: var(--nimbus-primary);
+.skill-stat {
+  align-items: center;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 500;
+  gap: 4px;
+  line-height: 16px;
+}
+.skill-stat .material-symbols-outlined {
+  color: var(--nimbus-text-secondary);
+}
+.skill-history {
+  color: var(--nimbus-text-disabled);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  position: absolute;
+  right: 24px;
+  top: 20px;
 }
 .empty-state {
   background: var(--nimbus-surface);
@@ -1285,7 +1329,6 @@ textarea:focus-visible {
 </style>
 </head>
 <body>
-
 <div class="skill-library">
   <header class="library-header">
     <div class="library-header-top">
@@ -1295,11 +1338,8 @@ textarea:focus-visible {
       </div>
       <div class="header-actions">
         <button class="btn btn-primary" onclick="showCreateForm()"><span class="material-symbols-outlined icon-sm" aria-hidden="true">add</span>Create New Skill</button>
-        <button class="btn btn-secondary" onclick="showMySkills()"><span class="material-symbols-outlined icon-sm" aria-hidden="true">bookmark</span>My Skills <span id="mySkillsCount">0</span></button>
+        <button class="btn btn-secondary" onclick="showMySkills()"><span class="material-symbols-outlined icon-sm" aria-hidden="true">bookmark</span>My Skills</button>
       </div>
-    </div>
-    <div class="search-wrap">
-      <input id="searchInput" class="search-input" type="search" placeholder="Search skills by name, keyword, or product..." oninput="renderSkills()">
     </div>
   </header>
 
@@ -1314,26 +1354,23 @@ textarea:focus-visible {
       <div id="goalsFilter" class="filter-group active"></div>
       <div id="productsFilter" class="filter-group"></div>
       <div id="typesFilter" class="filter-group"></div>
-      <div class="filter-divider">
-        <div class="filters-title">Difficulty</div>
-        <label class="filter-option"><input type="radio" name="difficulty" value="All Levels" checked onchange="renderSkills()"> All Levels</label>
-        <label class="filter-option"><input type="radio" name="difficulty" value="Beginner" onchange="renderSkills()"> Beginner</label>
-        <label class="filter-option"><input type="radio" name="difficulty" value="Intermediate" onchange="renderSkills()"> Intermediate</label>
-        <label class="filter-option"><input type="radio" name="difficulty" value="Advanced" onchange="renderSkills()"> Advanced</label>
-      </div>
       <button class="clear-filters" onclick="clearFilters()">Clear all filters</button>
     </aside>
 
     <main class="main-content">
       <section id="libraryView">
         <div class="main-toolbar">
-          <div class="result-count" id="resultCount">Loading skills...</div>
-          <select class="sort-select" id="sortSelect" onchange="renderSkills()">
-            <option value="recommended">Recommended</option>
-            <option value="time">Shortest time</option>
-            <option value="steps">Fewest steps</option>
-            <option value="difficulty">Difficulty</option>
-          </select>
+          <div class="search-wrap toolbar-search">
+            <input id="searchInput" class="search-input" type="search" placeholder="Search skills by name, keyword, or product..." oninput="renderSkills()">
+          </div>
+          <div class="toolbar-actions">
+            <div class="result-count" id="resultCount">Loading skills...</div>
+            <select class="sort-select" id="sortSelect" onchange="renderSkills()">
+              <option value="recommended">Recommended</option>
+              <option value="time">Shortest time</option>
+              <option value="steps">Fewest steps</option>
+            </select>
+          </div>
         </div>
         <div id="skeletonGrid" class="skeleton-grid">
           <div class="skeleton-card"></div>
@@ -1393,14 +1430,6 @@ textarea:focus-visible {
               <input id="skillTime" class="form-input" type="number" min="1" value="10">
             </div>
             <div class="form-field full">
-              <label>Difficulty</label>
-              <div class="radio-row">
-                <label><input type="radio" name="formDifficulty" value="Beginner" checked> Beginner</label>
-                <label><input type="radio" name="formDifficulty" value="Intermediate"> Intermediate</label>
-                <label><input type="radio" name="formDifficulty" value="Advanced"> Advanced</label>
-              </div>
-            </div>
-            <div class="form-field full">
               <label for="skillDescription">Short Description</label>
               <textarea id="skillDescription" class="form-textarea" placeholder="Describe what this skill helps users accomplish"></textarea>
             </div>
@@ -1458,9 +1487,11 @@ const skills = [
     goal: 'Troubleshooting & Debugging',
     products: ['Vertex AI / Gemini Enterprise', 'IAM & Security'],
     type: 'Quick Fix',
-    difficulty: 'Beginner',
     steps: 4,
     time: 5,
+    views: 2840,
+    popularity: 438,
+    previouslyViewed: false,
     highlight: 'Auto-detected',
     description: 'Diagnose and resolve permission errors for Gemini Enterprise endpoint calls',
     prerequisites: ['Owner or IAM Admin role', 'Cloud Shell or gcloud CLI available', 'test_endpoint.py script created'],
@@ -1475,9 +1506,11 @@ const skills = [
     goal: 'Setup & Configuration',
     products: ['Cloud Run'],
     type: 'Tutorial',
-    difficulty: 'Beginner',
     steps: 6,
     time: 15,
+    views: 1960,
+    popularity: 312,
+    previouslyViewed: false,
     highlight: 'Zero-config deployment',
     description: 'Deploy containerized applications with automatic scaling and HTTPS',
     prerequisites: ['Container image available', 'Cloud Run API enabled'],
@@ -1492,9 +1525,11 @@ const skills = [
     goal: 'Optimization & Best Practices',
     products: ['BigQuery'],
     type: 'Deep Dive',
-    difficulty: 'Advanced',
     steps: 8,
     time: 30,
+    views: 3210,
+    popularity: 527,
+    previouslyViewed: true,
     highlight: 'Cost reduction strategies',
     description: 'Analyze and improve query efficiency to reduce costs and runtime',
     prerequisites: ['BigQuery job history access', 'Sample query available'],
@@ -1509,9 +1544,11 @@ const skills = [
     goal: 'Setup & Configuration',
     products: ['Vertex AI / Gemini Enterprise'],
     type: 'Tutorial',
-    difficulty: 'Intermediate',
     steps: 7,
     time: 20,
+    views: 1475,
+    popularity: 224,
+    previouslyViewed: false,
     highlight: 'Real-time alerts',
     description: 'Configure monitoring and alerting for deployed ML models',
     prerequisites: ['Vertex AI endpoint deployed', 'Monitoring permissions available'],
@@ -1526,9 +1563,11 @@ const skills = [
     goal: 'Troubleshooting & Debugging',
     products: ['Cloud Build'],
     type: 'Quick Fix',
-    difficulty: 'Beginner',
     steps: 5,
     time: 10,
+    views: 2530,
+    popularity: 389,
+    previouslyViewed: true,
     highlight: 'Common fixes included',
     description: 'Diagnose and resolve common Cloud Build pipeline errors',
     prerequisites: ['Cloud Build logs access', 'Build ID or trigger name available'],
@@ -1543,9 +1582,11 @@ const skills = [
     goal: 'Setup & Configuration',
     products: ['IAM & Security'],
     type: 'Deep Dive',
-    difficulty: 'Advanced',
     steps: 9,
     time: 25,
+    views: 1720,
+    popularity: 246,
+    previouslyViewed: false,
     highlight: 'Least privilege best practices',
     description: 'Create fine-grained custom IAM roles for specific use cases',
     prerequisites: ['IAM Admin role', 'Permission list drafted'],
@@ -1603,24 +1644,39 @@ function getFilteredSkills() {
   const goals = getCheckedValues('goals');
   const products = getCheckedValues('products');
   const types = getCheckedValues('types');
-  const difficulty = document.querySelector('input[name="difficulty"]:checked').value;
   let result = skills.filter(skill => {
-    const searchable = [skill.title, skill.category, skill.type, skill.difficulty, skill.description, ...skill.products].join(' ').toLowerCase();
+    const searchable = [skill.title, skill.category, skill.type, skill.description, ...skill.products].join(' ').toLowerCase();
     const matchesSearch = !query || searchable.includes(query);
     const matchesGoal = goals.length === 0 || goals.includes(skill.goal);
     const matchesProduct = products.length === 0 || products.includes('All Products') || skill.products.some(product => products.includes(product));
     const matchesType = types.length === 0 || types.includes(skill.type);
-    const matchesDifficulty = difficulty === 'All Levels' || skill.difficulty === difficulty;
-    return matchesSearch && matchesGoal && matchesProduct && matchesType && matchesDifficulty;
+    return matchesSearch && matchesGoal && matchesProduct && matchesType;
   });
   const sort = document.getElementById('sortSelect').value;
   if (sort === 'time') result.sort((a, b) => a.time - b.time);
   if (sort === 'steps') result.sort((a, b) => a.steps - b.steps);
-  if (sort === 'difficulty') {
-    const order = { Beginner: 1, Intermediate: 2, Advanced: 3 };
-    result.sort((a, b) => order[a.difficulty] - order[b.difficulty]);
-  }
   return result;
+}
+
+function formatCount(value) {
+  return Number(value || 0).toLocaleString();
+}
+
+function renderSkillStats(skill) {
+  return `
+    <div class="skill-stats" aria-label="Skill popularity metrics">
+      <span class="skill-stat" title="Views">
+        <span class="material-symbols-outlined icon-sm" aria-hidden="true">visibility</span>${formatCount(skill.views)}
+      </span>
+      <span class="skill-stat" title="Popularity">
+        <span class="material-symbols-outlined icon-sm" aria-hidden="true">thumb_up</span>${formatCount(skill.popularity)}
+      </span>
+    </div>
+  `;
+}
+
+function renderPreviouslyViewed(skill) {
+  return skill.previouslyViewed ? '<div class="skill-history">Previously viewed</div>' : '';
 }
 
 function renderSkills() {
@@ -1634,12 +1690,16 @@ function renderSkills() {
       <article class="skill-card skill-card--minimal" onclick="viewSkillDetail('${skill.id}')">
         <div class="skill-card-header">
           <span class="material-symbols-outlined skill-icon" aria-hidden="true">${skill.icon}</span>
-          <div class="skill-card-title">${skill.title}</div>
+          <div class="skill-card-heading">
+            <div class="skill-card-title">${skill.title}</div>
+            <div class="skill-meta">${skill.steps} steps · ${skill.time} min</div>
+          </div>
         </div>
         <div class="category-badge ${categoryClass(skill.category)}">${skill.category}</div>
-        <div class="skill-meta">${skill.steps} steps · ${skill.time} min · ${skill.difficulty}</div>
+        <p class="skill-description">${skill.description}</p>
         <div class="skill-highlight"><span class="material-symbols-outlined icon-sm" aria-hidden="true">task_alt</span>${skill.highlight}</div>
-        <button class="preview-btn" onclick="event.stopPropagation(); viewSkillDetail('${skill.id}')"><span class="material-symbols-outlined icon-sm" aria-hidden="true">visibility</span>Preview</button>
+        ${renderPreviouslyViewed(skill)}
+        ${renderSkillStats(skill)}
       </article>
     `).join('');
     empty.style.display = result.length ? 'none' : 'block';
@@ -1657,7 +1717,6 @@ function categoryClass(category) {
 
 function clearFilters() {
   document.querySelectorAll('.skill-filters input[type="checkbox"]').forEach(input => input.checked = false);
-  document.querySelector('input[name="difficulty"][value="All Levels"]').checked = true;
   document.getElementById('searchInput').value = '';
   renderSkills();
 }
@@ -1729,7 +1788,7 @@ function renderContextDetail(skill) {
             <h1 class="context-detail__title">
               <span class="material-symbols-outlined skill-icon" aria-hidden="true">${skill.icon}</span>${skill.title}
             </h1>
-            <p class="context-detail__meta">${skill.category} · ${skill.steps} steps · ${skill.time} min · ${skill.difficulty}</p>
+            <p class="context-detail__meta">${skill.category} · ${skill.steps} steps · ${skill.time} min</p>
           </section>
 
           <section class="context-detail__section">
@@ -1838,7 +1897,7 @@ function renderContextDetail(skill) {
                 <a href="#skills/${item.id}" class="context-detail__related-card" onclick="viewSkillDetail('${item.id}'); return false;">
                   <span class="context-detail__card-icon material-symbols-outlined icon-xl" aria-hidden="true">${item.icon}</span>
                   <h3>${item.title}</h3>
-                  <p>${item.steps} steps · ${item.time} min · ${item.difficulty}</p>
+                  <p>${item.steps} steps · ${item.time} min</p>
                 </a>
               `).join('')}
             </div>
@@ -1861,10 +1920,6 @@ function renderContextDetail(skill) {
 }
 
 function viewSkillDetail(skillId) {
-  if (skillId === 'fix-403-forbidden-access') {
-    window.parent.location.href = window.parent.location.href.split('#')[0] + '#/skills/detail';
-    return;
-  }
   const skill = skills.find(item => item.id === skillId);
   if (!skill) return;
   currentSkillId = skillId;
@@ -1892,7 +1947,8 @@ function toggleSaveState(skillId) {
 }
 
 function updateMySkillsCount() {
-  document.getElementById('mySkillsCount').textContent = savedSkills.size;
+  const count = document.getElementById('mySkillsCount');
+  if (count) count.textContent = savedSkills.size;
 }
 
 function showMySkills() {
@@ -1904,12 +1960,16 @@ function showMySkills() {
     <article class="skill-card skill-card--minimal" onclick="viewSkillDetail('${skill.id}')">
       <div class="skill-card-header">
         <span class="material-symbols-outlined skill-icon" aria-hidden="true">${skill.icon}</span>
-        <div class="skill-card-title">${skill.title}</div>
+        <div class="skill-card-heading">
+          <div class="skill-card-title">${skill.title}</div>
+          <div class="skill-meta">${skill.steps} steps · ${skill.time} min</div>
+        </div>
       </div>
       <div class="category-badge ${categoryClass(skill.category)}">${skill.category}</div>
-      <div class="skill-meta">${skill.steps} steps · ${skill.time} min · ${skill.difficulty}</div>
+      <p class="skill-description">${skill.description}</p>
       <div class="skill-highlight"><span class="material-symbols-outlined icon-sm" aria-hidden="true">bookmark</span>Saved</div>
-      <button class="preview-btn"><span class="material-symbols-outlined icon-sm" aria-hidden="true">visibility</span>Preview</button>
+      ${renderPreviouslyViewed(skill)}
+      ${renderSkillStats(skill)}
     </article>
   `).join('');
   document.getElementById('emptyState').style.display = saved.length ? 'none' : 'block';

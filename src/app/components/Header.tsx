@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, MoreVertical, Globe, ExternalLink, Sun } from "lucide-react";
 import { Link, useLocation } from "react-router";
+import { MaterialIcon } from "./MaterialIcon";
 
 const technologyAreas = [
   "AI and ML",
@@ -79,7 +79,7 @@ export function Header() {
                 onClick={() => setIsTechOpen((v) => !v)}
               >
                 Technology areas
-                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isTechOpen ? "rotate-180" : ""}`} />
+                <MaterialIcon name="keyboard_arrow_down" size={18} className={`transition-transform ${isTechOpen ? "rotate-180" : ""}`} />
               </button>
 
               {isTechOpen && (
@@ -99,7 +99,7 @@ export function Header() {
                 onClick={() => setIsToolsOpen((v) => !v)}
               >
                 Cross-product tools
-                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${isToolsOpen ? "rotate-180" : ""}`} />
+                <MaterialIcon name="keyboard_arrow_down" size={18} className={`transition-transform ${isToolsOpen ? "rotate-180" : ""}`} />
               </button>
 
               {isToolsOpen && (
@@ -134,22 +134,22 @@ export function Header() {
         <div className="flex items-center gap-1 text-[#5f6368]">
           <button className="hidden items-center gap-1 rounded border border-[#dadce0] px-2.5 py-1.5 text-[12px] font-medium text-[#3c4043] hover:bg-[#f8f9fa] md:flex">
             Console
-            <ExternalLink className="h-3.5 w-3.5" />
+            <MaterialIcon name="open_in_new" size={16} />
           </button>
           <button className="hidden rounded border border-[#dadce0] px-2.5 py-1.5 text-[12px] font-medium text-[#3c4043] hover:bg-[#f8f9fa] md:block">
             Shell
           </button>
           <button className="rounded p-2 hover:bg-[#f1f3f4]">
-            <Sun className="h-4 w-4" />
+            <MaterialIcon name="light_mode" size={18} />
           </button>
           <button className="hidden items-center gap-1 rounded px-2 py-1.5 text-[12px] hover:bg-[#f1f3f4] sm:flex">
-            <Globe className="h-3.5 w-3.5" />
+            <MaterialIcon name="language" size={16} />
             English
-            <ChevronDown className="h-3.5 w-3.5" />
+            <MaterialIcon name="keyboard_arrow_down" size={16} />
           </button>
           <div className="relative" ref={moreRef}>
             <button className="rounded p-2 hover:bg-[#f1f3f4]" onClick={() => setIsMoreOpen((v) => !v)}>
-              <MoreVertical className="h-4 w-4" />
+              <MaterialIcon name="more_vert" size={18} />
             </button>
             {isMoreOpen && (
               <div className="absolute right-0 top-full mt-1 w-56 rounded-md border border-[#dadce0] bg-white py-2 shadow-lg">

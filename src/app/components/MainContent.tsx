@@ -1,15 +1,9 @@
 import { useState, useEffect, useRef, type ReactNode } from 'react';
 import { Link } from 'react-router';
-import {
-  Sparkles, FileText, ShieldAlert, Terminal,
-  ArrowRight, Code, ArrowUpRight, Play,
-  SearchCheck, LayoutTemplate, BookOpen, Filter, Workflow,
-  LayoutDashboard, Cloud, Key, ChevronDown, Plus, Mic, ScanSearch,
-  Image, Paperclip, Globe, RefreshCw, Timer, MonitorPlay,
-} from 'lucide-react';
 import gcLogo from '../../assets/react.svg';
 import newLogo from '../../imports/Screenshot_2026-05-07_at_5.04.27_PM.png';
 import { Footer } from './Footer';
+import { MaterialIcon } from './MaterialIcon';
 
 // ── Nimbus Design System Tokens (inline constants) ────────────────────────────
 const N = {
@@ -44,13 +38,25 @@ export function MainContent() {
   const [searchValue,    setSearchValue]    = useState('');
   const [showDropdown,   setShowDropdown]   = useState(false);
   const [showPlusMenu,   setShowPlusMenu]   = useState(false);
-  const [animationDone,  setAnimationDone]  = useState(false);
+  const [showBottomSearch, setShowBottomSearch] = useState(false);
   const [selectedModel,  setSelectedModel]  = useState<'Auto' | 'Pro' | 'Flash'>('Auto');
+  const mainRef = useRef<HTMLElement>(null);
+  const searchBoxRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const plusMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setAnimationDone(true), 16000);
-    return () => clearTimeout(t);
+    const root = mainRef.current;
+    const target = searchBoxRef.current;
+    if (!root || !target) return;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      const rootTop = entry.rootBounds?.top ?? 0;
+      setShowBottomSearch(!entry.isIntersecting && entry.boundingClientRect.bottom < rootTop);
+    }, { root, threshold: 0 });
+
+    observer.observe(target);
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -64,7 +70,7 @@ export function MainContent() {
   }, [showPlusMenu]);
 
   return (
-    <main style={{ flex: 1, background: N.surface, overflowY: 'auto', position: 'relative' }}>
+    <main ref={mainRef} style={{ flex: 1, background: N.surface, overflowY: 'auto', position: 'relative' }}>
       <div style={{ maxWidth: 1024, margin: '0 auto', padding: '64px 32px' }}>
 
         {/* ── Hero Header ── */}
@@ -75,6 +81,7 @@ export function MainContent() {
           {/* Display M: 36/44/600 */}
           <h1 style={{
             fontSize: 36, lineHeight: '44px', fontWeight: 600,
+            fontFamily: '"Google Sans", Inter, system-ui, sans-serif',
             color: N.textPrimary, marginBottom: 12,
             whiteSpace: 'nowrap',
           }}>
@@ -91,28 +98,8 @@ export function MainContent() {
         </div>
 
         {/* ── Search Box ── */}
-        <div style={{ maxWidth: 720, margin: '0 auto 48px', position: 'relative' }}>
-          {/* Animated border wrapper */}
+        <div ref={searchBoxRef} style={{ maxWidth: 720, margin: '0 auto 48px', position: 'relative' }}>
           <div style={{ position: 'relative', borderRadius: 9999 }}>
-            {/* Traveling Google-color border */}
-            {!animationDone && (
-              <div style={{
-                position: 'absolute', inset: -3, borderRadius: 9999,
-                padding: 3, pointerEvents: 'none',
-              }}>
-                <div style={{
-                  position: 'absolute', inset: 0, borderRadius: 9999,
-                  background: 'conic-gradient(from 0deg,#4285F4 0deg 90deg,#EA4335 90deg 180deg,#FBBC05 180deg 270deg,#34A853 270deg 360deg)',
-                }} />
-                <div style={{
-                  position: 'absolute', inset: 0, borderRadius: 9999,
-                  background: 'conic-gradient(from 0deg,transparent 0deg,transparent 60deg,rgba(255,255,255,0.8) 90deg,transparent 120deg,transparent 360deg)',
-                  animation: 'rotateBorderSlow 8s linear 2',
-                }} />
-                <div style={{ position: 'absolute', inset: 3, background: N.surface, borderRadius: 9999 }} />
-              </div>
-            )}
-
             {/* Search pill */}
             <div style={{
               position: 'relative',
@@ -122,7 +109,7 @@ export function MainContent() {
               alignItems: 'center',
               padding: '10px 16px',
               gap: 12,
-              border: animationDone ? `1.5px solid ${N.border}` : 'none',
+              border: `1.5px solid ${N.border}`,
               boxShadow: N.shadowMd,
             }}>
               {/* + button with dropdown */}
@@ -138,7 +125,7 @@ export function MainContent() {
                     transition: `background ${N.motionFast}`,
                   }}
                 >
-                  <Plus size={16} />
+                  <MaterialIcon name="add" size={16} />
                 </button>
 
                 {/* Plus Dropdown */}
@@ -157,7 +144,7 @@ export function MainContent() {
                         textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6,
                       }}>Add recent tabs</p>
                       {recentTabs.map((tab, i) => (
-                        <PlusMenuItem key={i} icon={<img src={tab.icon} alt="" style={{ width: 16, height: 16, objectFit: 'contain' }} />} label={tab.label} suffix={<Plus size={14} color={N.textDisabled} />} />
+                        <PlusMenuItem key={i} icon={<img src={tab.icon} alt="" style={{ width: 16, height: 16, objectFit: 'contain' }} />} label={tab.label} suffix={<MaterialIcon name="add" size={14} color={N.textDisabled} />} />
                       ))}
                     </div>
 
@@ -165,8 +152,8 @@ export function MainContent() {
 
                     {/* Add content */}
                     <div style={{ padding: '4px 16px' }}>
-                      <PlusMenuItem icon={<Image size={16} color={N.textSecondary} />} label="Add images" />
-                      <PlusMenuItem icon={<Paperclip size={16} color={N.textSecondary} />} label="Add files" />
+                      <PlusMenuItem icon={<MaterialIcon name="image" size={16} color={N.textSecondary} />} label="Add images" />
+                      <PlusMenuItem icon={<MaterialIcon name="attach_file" size={16} color={N.textSecondary} />} label="Add files" />
                     </div>
 
                     <div style={{ height: 1, background: N.border, margin: '4px 0' }} />
@@ -177,9 +164,9 @@ export function MainContent() {
                         fontSize: 11, fontWeight: 600, color: N.textDisabled,
                         textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 6, paddingLeft: 8,
                       }}>Tools</p>
-                      <PlusMenuItem icon={<Globe size={16} color={N.primary} />}   label="Deep Search" />
-                      <PlusMenuItem icon={<MonitorPlay size={16} color="#7C3AED" />} label="Canvas" />
-                      <PlusMenuItem icon={<Sparkles size={16} color={N.warning} />} label="Create images" />
+                      <PlusMenuItem icon={<MaterialIcon name="travel_explore" size={16} color={N.primary} />}   label="Deep Search" />
+                      <PlusMenuItem icon={<MaterialIcon name="monitor" size={16} color="#7C3AED" />} label="Canvas" />
+                      <PlusMenuItem icon={<MaterialIcon name="auto_awesome" size={16} color={N.warning} />} label="Create images" />
                     </div>
 
                     <div style={{ height: 1, background: N.border, margin: '4px 0' }} />
@@ -204,9 +191,9 @@ export function MainContent() {
                           }}
                         >
                           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                            {model === 'Auto'  && <RefreshCw size={16} />}
-                            {model === 'Pro'   && <Sparkles  size={16} />}
-                            {model === 'Flash' && <Timer     size={16} />}
+                            {model === 'Auto'  && <MaterialIcon name="sync" size={16} />}
+                            {model === 'Pro'   && <MaterialIcon name="auto_awesome" size={16} />}
+                            {model === 'Flash' && <MaterialIcon name="timer" size={16} />}
                             <span style={{ fontSize: 13, fontWeight: 500 }}>{model}</span>
                           </div>
                           {selectedModel === model && (
@@ -221,6 +208,7 @@ export function MainContent() {
 
               {/* Text input */}
               <input
+                ref={searchInputRef}
                 type="text"
                 style={{
                   flex: 1, minWidth: 0, fontSize: 16, lineHeight: '24px',
@@ -236,8 +224,8 @@ export function MainContent() {
 
               {/* Right icons */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }}>
-                <IconBtn><Mic size={20} color={N.textSecondary} /></IconBtn>
-                <IconBtn><ScanSearch size={20} color={N.textSecondary} /></IconBtn>
+                <IconBtn><MaterialIcon name="mic" size={20} color={N.textSecondary} /></IconBtn>
+                <IconBtn><MaterialIcon name="document_scanner" size={20} color={N.textSecondary} /></IconBtn>
               </div>
             </div>
           </div>
@@ -255,7 +243,7 @@ export function MainContent() {
                 display: 'flex', alignItems: 'center', gap: 8,
                 fontSize: 14, fontWeight: 500, color: N.textPrimary,
               }}>
-                <SearchCheck size={16} color={N.primary} /> Navigating to:
+                <MaterialIcon name="fact_check" size={16} color={N.primary} /> Navigating to:
               </div>
               <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
                 <div style={{
@@ -270,14 +258,14 @@ export function MainContent() {
                   </p>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <span style={{ fontSize: 11, color: N.textSecondary, display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <FileText size={12} /> From official IAM guide
+                      <MaterialIcon name="description" size={12} /> From official IAM guide
                     </span>
                     <button style={{
                       fontSize: 11, fontWeight: 600, color: N.primary,
                       background: 'none', border: 'none', cursor: 'pointer',
                       display: 'flex', alignItems: 'center', gap: 4,
                     }}>
-                      Verify in docs <ArrowRight size={12} />
+                      Verify in docs <MaterialIcon name="arrow_forward" size={12} />
                     </button>
                   </div>
                 </div>
@@ -289,7 +277,7 @@ export function MainContent() {
                   }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-                        <Sparkles size={16} color={N.primary} />
+                        <MaterialIcon name="auto_awesome" size={16} color={N.primary} />
                         <span style={{ fontSize: 11, fontWeight: 600, color: N.primary, letterSpacing: '0.06em' }}>TROUBLESHOOTING SKILL</span>
                       </div>
                       <span style={{ fontSize: 11, color: N.textDisabled }}>Powered by Gemini</span>
@@ -312,34 +300,6 @@ export function MainContent() {
             </div>
           )}
 
-          {/* Quick suggestion chips */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 8, marginTop: 20 }}>
-            {[
-              { icon: <LayoutDashboard size={16} color={N.primary} />, label: 'App development' },
-              { icon: <Cloud size={16} color={N.success} />,          label: 'Deploy Services'  },
-              { icon: <Key size={16} color="#7C3AED" />,              label: 'Manage IAM'       },
-            ].map(chip => (
-              <button key={chip.label} style={{
-                display: 'flex', alignItems: 'center', gap: 6,
-                padding: '6px 16px', borderRadius: 9999,
-                border: `1px solid ${N.border}`, background: N.surface,
-                fontSize: 14, fontWeight: 500, color: N.textPrimary,
-                cursor: 'pointer', boxShadow: N.shadowSm,
-                transition: `background ${N.motionFast}, border-color ${N.motionFast}`,
-              }}>
-                {chip.icon} {chip.label}
-              </button>
-            ))}
-            <Link to="/fix-permission-error" style={{
-              display: 'flex', alignItems: 'center', gap: 6,
-              padding: '6px 16px', borderRadius: 9999,
-              border: `1px solid ${N.border}`, background: N.surface,
-              fontSize: 14, fontWeight: 500, color: N.textPrimary,
-              cursor: 'pointer', boxShadow: N.shadowSm, textDecoration: 'none',
-            }}>
-              <ShieldAlert size={16} color={N.error} /> Fix permission error
-            </Link>
-          </div>
         </div>
 
         {/* ── Filter bar ── */}
@@ -351,7 +311,7 @@ export function MainContent() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14, color: N.textSecondary, fontWeight: 500 }}>
-              <Filter size={16} /> Filter by:
+              <MaterialIcon name="filter_list" size={16} /> Filter by:
             </span>
             <div style={{ position: 'relative' }}>
               <select style={{
@@ -368,7 +328,7 @@ export function MainContent() {
                 <option>Data Scientist</option>
                 <option>IT Admin</option>
               </select>
-              <ChevronDown size={16} color={N.textSecondary} style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
+              <MaterialIcon name="keyboard_arrow_down" size={16} color={N.textSecondary} style={{ position: 'absolute', right: 10, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }} />
             </div>
           </div>
           <span style={{ fontSize: 12, color: N.textDisabled, fontWeight: 500, letterSpacing: '0.02em' }}>
@@ -382,14 +342,14 @@ export function MainContent() {
             title="Get started with Google Cloud"
             titleLink="/get-started"
             description="Get $300 in free credits and free usage of 20+ products on signup to run, test, and deploy workloads."
-            icon={<Play size={20} color={N.textSecondary} />}
+            icon={<MaterialIcon name="play_arrow" size={20} color={N.textSecondary} />}
             links={['Create an Account', 'Google Cloud Overview', 'Start your platform setup']}
           />
           <TaskCard
             title="Skills"
             titleLink="/skills"
             description="Turn documentation into action with guided, step-by-step workflows that help you get things done faster."
-            icon={<Workflow size={20} color={N.textSecondary} />}
+            icon={<MaterialIcon name="account_tree" size={20} color={N.textSecondary} />}
             links={["What's a Skill", 'Example Skill.md', 'What Can you do with Skills', 'Create a Skill', 'Skills Library']}
             twoColumnLinks
           />
@@ -400,13 +360,13 @@ export function MainContent() {
           <TaskCard
             title="Build"
             description="Create conversational agents, document analysis pipelines, and fine-tune models with your data."
-            icon={<Terminal size={20} color={N.textSecondary} />}
+            icon={<MaterialIcon name="terminal" size={20} color={N.textSecondary} />}
             links={['Build a conversational agent', 'Build a document analysis pipeline', 'Fine-tune a model with your data']}
           />
           <TaskCard
             title="Setting Up Services & Initial Configuration"
             description="Configure projects, environments, and APIs to get your Google Cloud environment production-ready."
-            icon={<Code size={20} color={N.textSecondary} />}
+            icon={<MaterialIcon name="code" size={20} color={N.textSecondary} />}
             links={['Create a new cloud project', 'Enable APIs and services', 'Configure billing']}
           />
         </div>
@@ -416,14 +376,14 @@ export function MainContent() {
           <TaskCard
             title="Troubleshooting Errors"
             description="Resolve errors quickly with action-first guides for permissions, model responses, and billing issues."
-            icon={<ShieldAlert size={20} color={N.textSecondary} />}
+            icon={<MaterialIcon name="gpp_maybe" size={20} color={N.textSecondary} />}
             links={['Debug API and SDK errors', 'Identify missing IAM roles', 'Resolve quota or billing issues']}
             popularResourcesLinks={['Permission and IAM references', 'Resolve authentication failures', 'Error-specific solutions']}
           />
           <TaskCard
             title="Deploy & Scale"
             description="Deploy your tuned models to endpoints, monitor their performance, and manage cloud costs and quotas."
-            icon={<LayoutTemplate size={20} color={N.textSecondary} />}
+            icon={<MaterialIcon name="dashboard_customize" size={20} color={N.textSecondary} />}
             links={['Launch web applications', 'Configure CI/CD pipelines', 'Create API endpoints']}
           />
         </div>
@@ -439,7 +399,7 @@ export function MainContent() {
                 fontSize: 20, lineHeight: '28px', fontWeight: 600,
                 color: N.textPrimary, display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4,
               }}>
-                <Code size={20} color={N.textSecondary} /> Prompt & Code Starters
+                <MaterialIcon name="code" size={20} color={N.textSecondary} /> Prompt & Code Starters
               </h2>
               <p style={{ fontSize: 14, color: N.textSecondary, lineHeight: '20px' }}>
                 Copy, customize, and run ready-made prompts and code snippets for common Google Cloud tasks.
@@ -451,7 +411,7 @@ export function MainContent() {
               background: 'none', border: 'none', cursor: 'pointer',
               whiteSpace: 'nowrap', flexShrink: 0,
             }}>
-              View all templates <ArrowRight size={16} />
+              View all templates <MaterialIcon name="arrow_forward" size={16} />
             </button>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16 }}>
@@ -465,12 +425,46 @@ export function MainContent() {
           <TaskCard
             title="Reference"
             description="Explore the full API documentation, IAM roles and permissions tables, pricing guides, and supported regions."
-            icon={<BookOpen size={20} color={N.textSecondary} />}
+            icon={<MaterialIcon name="menu_book" size={20} color={N.textSecondary} />}
             links={['API reference (models, parameters)', 'IAM roles and permissions table', 'Pricing and billing reference']}
           />
         </div>
 
       </div>
+      {showBottomSearch && (
+        <button
+          type="button"
+          onClick={() => {
+            searchBoxRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            window.setTimeout(() => searchInputRef.current?.focus(), 250);
+          }}
+          style={{
+            position: 'fixed',
+            left: '50%',
+            bottom: 32,
+            transform: 'translateX(-50%)',
+            width: 'min(640px, calc(100vw - 64px))',
+            height: 70,
+            border: 'none',
+            borderRadius: 9999,
+            background: '#EDF3FE',
+            boxShadow: '0 12px 30px rgba(60,64,67,0.18)',
+            color: '#5F6368',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '0 24px 0 28px',
+            fontSize: 16,
+            fontWeight: 500,
+            lineHeight: '24px',
+            cursor: 'pointer',
+            zIndex: 60,
+          }}
+        >
+          <span>Continue conversation</span>
+          <MaterialIcon name="open_in_full" size={20} color={N.textSecondary} />
+        </button>
+      )}
       <Footer />
     </main>
   );
@@ -674,7 +668,8 @@ function LinkRow({ label, size = 14 }: { label: string; size?: number }) {
       }}
     >
       <span>{label}</span>
-      <ArrowUpRight
+      <MaterialIcon
+        name="open_in_new"
         size={14}
         style={{
           opacity: hovered ? 1 : 0,

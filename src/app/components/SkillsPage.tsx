@@ -1,23 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router';
 import { Footer } from './Footer';
-import {
-  Sparkles,
-  CheckCircle2,
-  Workflow,
-  Bot,
-  Zap,
-  Shield,
-  Search,
-  Terminal,
-  Database,
-  Code,
-  ShieldCheck,
-  Copy,
-  ChevronRight,
-  ArrowRight,
-  ChevronDown,
-} from 'lucide-react';
+import { MaterialIcon } from './MaterialIcon';
 
 export function SkillsPage() {
   const [skillMdOpen, setSkillMdOpen] = useState(false);
@@ -157,7 +141,7 @@ By the end of this skill, you will:
             </li>
             <li>
               <div className="flex items-center">
-                <ChevronRight className="w-4 h-4 text-gray-400 mx-0.5" />
+                <MaterialIcon name="chevron_right" size={18} className="text-gray-400 mx-0.5" />
                 <span className="text-gray-900 font-medium">Skills</span>
               </div>
             </li>
@@ -214,7 +198,7 @@ By the end of this skill, you will:
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   flexShrink: 0, marginLeft: 16,
                 }}>
-                  <ArrowRight size={16} color="white" />
+                  <MaterialIcon name="arrow_forward" size={16} color="white" />
                 </span>
               </Link>
             </div>
@@ -232,7 +216,7 @@ By the end of this skill, you will:
               
               <div className="bg-blue-50/50 rounded-2xl p-8 border border-blue-100 my-12">
                 <h3 className="text-xl font-medium text-gray-900 mb-6 flex items-center gap-3">
-                  <Bot className="w-6 h-6 text-blue-500" />
+                  <MaterialIcon name="smart_toy" size={24} className="text-blue-500" />
                   Empowering both Humans and AI Agents
                 </h3>
                 <p className="mb-6">
@@ -240,19 +224,19 @@ By the end of this skill, you will:
                 </p>
                 <ul className="grid sm:grid-cols-2 gap-4 list-none pl-0">
                   <li className="flex items-start gap-3">
-                    <Zap className="w-5 h-5 text-yellow-500 flex-shrink-0 mt-0.5" />
+                    <MaterialIcon name="bolt" size={20} className="text-yellow-500 flex-shrink-0 mt-0.5" />
                     <span><strong className="font-medium text-gray-900">Faster task completion</strong> through step-by-step, goal-oriented workflows</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Workflow className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <MaterialIcon name="account_tree" size={20} className="text-blue-500 flex-shrink-0 mt-0.5" />
                     <span><strong className="font-medium text-gray-900">Reduced cognitive load</strong> by eliminating the need to reconstruct information across documentation</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Shield className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <MaterialIcon name="shield" size={20} className="text-green-500 flex-shrink-0 mt-0.5" />
                     <span><strong className="font-medium text-gray-900">Consistent and reliable execution</strong> based on trusted, official sources</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <Sparkles className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" />
+                    <MaterialIcon name="auto_awesome" size={20} className="text-purple-500 flex-shrink-0 mt-0.5" />
                     <span><strong className="font-medium text-gray-900">Adaptive support</strong> that works for both beginners (structured guidance) and advanced users (efficient, direct actions)</span>
                   </li>
                 </ul>
@@ -262,22 +246,22 @@ By the end of this skill, you will:
               <p className="mb-6">Each skill focuses on a specific task or workflow and can include:</p>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                 <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
-                  <CheckCircle2 className="w-6 h-6 text-blue-500 mb-3" />
+                  <MaterialIcon name="check_circle" size={24} className="text-blue-500 mb-3" />
                   <h4 className="font-medium text-gray-900 mb-2">Clear instructions</h4>
                   <p className="text-sm text-gray-500">Step-by-step guidance and clear decision points.</p>
                 </div>
                 <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
-                  <Search className="w-6 h-6 text-green-500 mb-3" />
+                  <MaterialIcon name="search" size={24} className="text-green-500 mb-3" />
                   <h4 className="font-medium text-gray-900 mb-2">Relevant links</h4>
                   <p className="text-sm text-gray-500">Direct connections to required documentation and tools.</p>
                 </div>
                 <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
-                  <Terminal className="w-6 h-6 text-purple-500 mb-3" />
+                  <MaterialIcon name="terminal" size={24} className="text-purple-500 mb-3" />
                   <h4 className="font-medium text-gray-900 mb-2">Examples</h4>
                   <p className="text-sm text-gray-500">Ready-to-use commands, configurations, or templates.</p>
                 </div>
                 <div className="border border-gray-200 rounded-xl p-5 bg-white shadow-sm">
-                  <ShieldCheck className="w-6 h-6 text-orange-500 mb-3" />
+                  <MaterialIcon name="verified_user" size={24} className="text-orange-500 mb-3" />
                   <h4 className="font-medium text-gray-900 mb-2">Validation</h4>
                   <p className="text-sm text-gray-500">Steps to confirm successful completion of tasks.</p>
                 </div>
@@ -290,8 +274,10 @@ By the end of this skill, you will:
                   className="w-full flex items-center justify-between px-6 py-4 bg-gray-50 hover:bg-gray-100 transition-colors text-left"
                 >
                   <span className="font-medium text-gray-900">Example SKILL.md</span>
-                  <ChevronDown
-                    className="w-4 h-4 text-gray-500 transition-transform duration-200"
+                  <MaterialIcon
+                    name="keyboard_arrow_down"
+                    size={18}
+                    className="text-gray-500 transition-transform duration-200"
                     style={{ transform: skillMdOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
                   />
                 </button>
@@ -303,7 +289,7 @@ By the end of this skill, you will:
                         <div key={idx}>
                           <div className="relative group bg-blue-50/50 border border-blue-100 rounded-xl p-5 mb-2">
                             <button className="absolute top-3 right-3 text-gray-400 hover:text-blue-600 transition-colors opacity-0 group-hover:opacity-100" title="Copy code">
-                              <Copy className="w-4 h-4" />
+                              <MaterialIcon name="content_copy" size={16} />
                             </button>
                             <pre className="font-mono text-sm text-gray-800 whitespace-pre-wrap m-0 leading-relaxed">{block.markdown}</pre>
                           </div>
@@ -357,37 +343,37 @@ By the end of this skill, you will:
                   {
                     title: "Getting started",
                     links: ["Set up projects", "Configure environments", "Enable services"],
-                    icon: <Zap className="w-5 h-5 text-blue-500" />
+                    icon: <MaterialIcon name="bolt" size={20} className="text-blue-500" />
                   },
                   {
                     title: "Building and deploying",
                     links: ["Launch applications", "Models", "Infrastructure"],
-                    icon: <Database className="w-5 h-5 text-green-500" />
+                    icon: <MaterialIcon name="database" size={20} className="text-green-500" />
                   },
                   {
                     title: "Connecting systems",
                     links: ["Integrate services", "APIs", "Data pipelines"],
-                    icon: <Workflow className="w-5 h-5 text-purple-500" />
+                    icon: <MaterialIcon name="account_tree" size={20} className="text-purple-500" />
                   },
                   {
                     title: "Configuring and customizing",
                     links: ["Adjust settings", "Parameters", "Environments"],
-                    icon: <Code className="w-5 h-5 text-orange-500" />
+                    icon: <MaterialIcon name="code" size={20} className="text-orange-500" />
                   },
                   {
                     title: "Automating workflows",
                     links: ["Create repeatable processes", "Scale operations"],
-                    icon: <Bot className="w-5 h-5 text-indigo-500" />
+                    icon: <MaterialIcon name="smart_toy" size={20} className="text-indigo-500" />
                   },
                   {
                     title: "Monitoring and improving",
                     links: ["Track performance", "Optimize systems"],
-                    icon: <Search className="w-5 h-5 text-teal-500" />
+                    icon: <MaterialIcon name="search" size={20} className="text-teal-500" />
                   },
                   {
                     title: "Exploring capabilities",
                     links: ["Learn features", "Guided workflows", "Hands-on workflows"],
-                    icon: <Sparkles className="w-5 h-5 text-rose-500" />
+                    icon: <MaterialIcon name="auto_awesome" size={20} className="text-rose-500" />
                   }
                 ].map((item, idx) => (
                   <div key={idx} className="flex gap-4 p-5 rounded-xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-colors">
