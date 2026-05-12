@@ -18,6 +18,7 @@
     />
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../src/styles/theme.css" />
     <link rel="stylesheet" href="./assets/site-header.css" />
 
     <style>
@@ -26,8 +27,8 @@
           "Google Sans Text", "Noto Sans", "Roboto", Arial, sans-serif;
       }
       body {
-        background: #ffffff;
-        color: #202124;
+        background: var(--nimbus-surface);
+        color: var(--nimbus-text-primary);
       }
       /* Force 4-column grid for "Inside a Skill" cards regardless of Tailwind
          CDN responsive class behavior. Below 768px it collapses to 2 columns. */
@@ -48,6 +49,42 @@
       .skill-card-desc {
         font-size: 13px;
         line-height: 1.55;
+      }
+      .gtl-pill {
+        align-items: center;
+        background: color-mix(in srgb, var(--nimbus-primary) 12%, white);
+        border: 1px solid color-mix(in srgb, var(--nimbus-primary) 28%, white);
+        border-radius: 9999px;
+        display: inline-flex;
+        justify-content: space-between;
+        margin-top: 32px;
+        padding: 12px 12px 12px 22px;
+        text-decoration: none;
+        transition:
+          background var(--nimbus-motion-fast),
+          box-shadow var(--nimbus-motion-fast);
+        width: fit-content;
+      }
+      .gtl-pill-label {
+        color: var(--nimbus-primary);
+        font-size: 15px;
+        line-height: 22px;
+      }
+      .gtl-pill-icon {
+        align-items: center;
+        background: var(--nimbus-primary);
+        border-radius: 9999px;
+        color: var(--nimbus-surface);
+        display: flex;
+        flex-shrink: 0;
+        height: 32px;
+        justify-content: center;
+        margin-left: 16px;
+        width: 32px;
+      }
+      .gtl-pill-icon .material-symbols-outlined {
+        color: currentColor;
+        font-size: 16px;
       }
     </style>
   </head>
@@ -111,46 +148,12 @@
                 <a
                   href="./skill-library.html"
                   class="gtl-pill"
-                  style="
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    background: #eaf2fd;
-                    border: 1px solid #bddaf9;
-                    border-radius: 9999px;
-                    padding: 12px 12px 12px 22px;
-                    text-decoration: none;
-                    margin-top: 32px;
-                    width: fit-content;
-                    transition:
-                      background 120ms ease-out,
-                      box-shadow 120ms ease-out;
-                  "
                 >
-                  <span
-                    style="font-size: 15px; color: #1a73e8; line-height: 22px"
-                  >
-                    <strong style="font-weight: 600">Go to library</strong>
+                  <span class="gtl-pill-label">
+                    <strong>Go to library</strong>
                   </span>
-                  <span
-                    style="
-                      width: 32px;
-                      height: 32px;
-                      border-radius: 9999px;
-                      background: #1a73e8;
-                      display: flex;
-                      align-items: center;
-                      justify-content: center;
-                      flex-shrink: 0;
-                      margin-left: 16px;
-                    "
-                  >
-                    <span
-                      class="material-symbols-outlined"
-                      style="font-size: 16px; color: white"
-                    >
-                      arrow_forward
-                    </span>
+                  <span class="gtl-pill-icon">
+                    <span class="material-symbols-outlined">arrow_forward</span>
                   </span>
                 </a>
               </div>
@@ -507,11 +510,13 @@
       // Hover interaction for the "Go to library" pill
       document.querySelectorAll(".gtl-pill").forEach((el) => {
         el.addEventListener("mouseenter", () => {
-          el.style.background = "#D2E3FC";
-          el.style.boxShadow = "0 2px 8px rgba(26,115,232,0.15)";
+          el.style.background =
+            "color-mix(in srgb, var(--nimbus-primary) 20%, white)";
+          el.style.boxShadow = "var(--nimbus-shadow-sm)";
         });
         el.addEventListener("mouseleave", () => {
-          el.style.background = "#EAF2FD";
+          el.style.background =
+            "color-mix(in srgb, var(--nimbus-primary) 12%, white)";
           el.style.boxShadow = "none";
         });
       });
